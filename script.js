@@ -22,7 +22,28 @@ const buildMessage = (p, a, r, rec) => {
     let room = getRandomElement(r);
     let recurrence = getRandomElement(rec);
 
-    return `${person} will ${action} the ${room} every ${recurrence}.`;
+    if (action === 'Sweep') {
+        while (room === 'Eleanors Bedroom' || room === 'Playroom' || room === 'Eleanors Closet' || room === 'Playroom Closet') {
+            room = getRandomElement(r);
+        }
+    }
+    else if (action === 'Mop') {
+        while (room === 'Master Bedroom' || room === 'Eleanors Bedroom' || room === 'Master Closet' || room === 'Eleanors Closet' || room === 'Playroom Closet' || room === 'Garage' || room === 'Harry Potter Closet') {
+            room = getRandomElement(r);
+        }
+    }
+    else if (action === 'Vacuum') {
+        while (room === 'Kitchen' || room === 'Dining Room' || room === 'Master Bedroom' || room === 'Master Bathroom' || room === 'Eleanors Bathroom' || room === 'Half Bath' || room === 'Master Closet' || room === 'Harry Potter Closet' || room === 'Laundry Room' || room === 'Garage') {
+            room = getRandomElement(r);
+        }
+    }
+
+    if (room === 'Eleanors Bedroom' || room === 'Eleanors Bathroom' || room === 'Eleanors Closet') {
+        return `${person} will ${action} ${room} every ${recurrence}.`;
+    }
+    else {
+        return `${person} will ${action} the ${room} every ${recurrence}.`;
+    }
 }
 
 //---------- Main code
