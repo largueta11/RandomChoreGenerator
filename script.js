@@ -8,7 +8,36 @@ let rooms = ['Kitchen', 'Dining Room', 'Living Room', 'Master Bedroom', 'Eleanor
 
 let recurrences = ['Day', 'Week', 'Month', 'Year'];
 
-let intervals = [];
+const invalidRoomsByAction = {
+  Sweep: [
+    'Eleanors Bedroom',
+    'Playroom',
+    'Eleanors Closet',
+    'Playroom Closet'
+  ],
+  Mop: [
+    'Master Bedroom',
+    'Eleanors Bedroom',
+    'Master Closet',
+    'Eleanors Closet',
+    'Playroom Closet',
+    'Garage',
+    'Harry Potter Closet'
+  ],
+  Vacuum: [
+    'Kitchen',
+    'Dining Room',
+    'Master Bedroom',
+    'Master Bathroom',
+    'Eleanors Bathroom',
+    'Half Bath',
+    'Master Closet',
+    'Harry Potter Closet',
+    'Laundry Room',
+    'Garage'
+  ]
+};
+
 
 //---------- Functions
 
@@ -16,6 +45,8 @@ const getRandomElement = (array) => {
     return array[Math.floor(Math.random() * array.length)];
 }
 
+// buildMessage version 1.0
+/*
 const buildMessage = (p, a, r, rec) => {
     let person = getRandomElement(p);
     let action = getRandomElement(a);
@@ -44,6 +75,24 @@ const buildMessage = (p, a, r, rec) => {
     else {
         return `${person} will ${action} the ${room} every ${recurrence}.`;
     }
+}
+*/
+
+// buildMessage version 2.0
+
+const buildMessage = (p, a, r, rec) => {
+    let person = getRandomElement(p);
+    let action = getRandomElement(a);
+    let recurrence = getRandomElement(rec);
+
+    const invalidRooms = invalidRoomsByAction[a] ?? [];
+    const validRooms = r.filter(r => !invalidRooms.includes(r));
+
+    let room = getRandomElement(validRooms);
+
+    let needsThe = !room.startsWith('Eleanors');
+
+    return `${person} will ${action} ${needsThe ? 'the ' : ''}${room} every ${recurrence}.`;
 }
 
 //---------- Main code
