@@ -85,8 +85,8 @@ const buildMessage = (p, a, r, rec) => {
     let action = getRandomElement(a);
     let recurrence = getRandomElement(rec);
 
-    const invalidRooms = invalidRoomsByAction[a] ?? [];
-    const validRooms = r.filter(r => !invalidRooms.includes(r));
+    const invalidRooms = invalidRoomsByAction[action] ?? [];
+    const validRooms = r.filter(room => !invalidRooms.includes(room));
 
     let room = getRandomElement(validRooms);
 
